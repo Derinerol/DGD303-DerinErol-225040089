@@ -5,7 +5,8 @@ public class PlayerCollision : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        // Check if the collided object is tagged as "Enemy" or "TankyEnemy"
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("TankyEnemy"))
         {
             // Player loses - Load LoseScene
             SceneManager.LoadScene("LoseScene");
