@@ -3,18 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance; // Singleton instance
-
-    private int enemiesDestroyed = 0; // Track destroyed enemies
-    private int finalScore = 0; // Track player's score
+    public static GameManager Instance;
+    private const int winScoreThreshold = 300; // Win condition
 
     private void Awake()
     {
-        // Ensure there's only one GameManager
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -22,28 +19,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ResetGame();
+    }
+
     public void EnemyDestroyed()
     {
-        enemiesDestroyed++;
-
-        // Check win condition
-        if (enemiesDestroyed >= 10)
+        if (ScoreManager.Instance.GetScore() >= winScoreThreshold)
         {
-            // Save the score
-            finalScore = ScoreManager.Instance.GetScore();
             SceneManager.LoadScene("WinScene");
         }
     }
 
     public void PlayerDied()
     {
-        // Save the score
-        finalScore = ScoreManager.Instance.GetScore();
         SceneManager.LoadScene("LoseScene");
     }
 
     public int GetFinalScore()
     {
-        return finalScore;
+        return ScoreManager.Instance?.GetScore() ?? 0; // Directly fetch from ScoreManager
+    }
+
+    public void ResetGame()
+    {
+        Debug.Log("Game Reset! Score cleared.");
+        ScoreManager.Instance?.ResetScore();
     }
 }

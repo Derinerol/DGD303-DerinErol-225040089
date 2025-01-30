@@ -3,17 +3,16 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance; // Singleton for global access
-    public TextMeshProUGUI scoreText; // Reference to the score display
-
-    private int score = 0; // Internal score tracker
+    public static ScoreManager Instance;
+    public TextMeshProUGUI scoreText;
+    private int score = 0;
 
     private void Awake()
     {
-        // Ensure only one instance exists
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -21,25 +20,27 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // Method to add points to the score
     public void AddScore(int points)
     {
         score += points;
         UpdateScoreDisplay();
     }
 
-    // Updates the score UI
     private void UpdateScoreDisplay()
     {
-        if (scoreText != null)
+        if (scoreText == null)
         {
-            scoreText.text = "Score: " + score;
+            scoreText = FindObjectOfType<TextMeshProUGUI>();
         }
+        scoreText?.SetText($"Score: {score}"); // More efficient way to update text
     }
 
-    // Method to retrieve the current score
-    public int GetScore()
+    public int GetScore() => score;
+
+    public void ResetScore()
     {
-        return score;
+        Debug.Log("Resetting score...");
+        score = 0;
+        UpdateScoreDisplay();
     }
 }

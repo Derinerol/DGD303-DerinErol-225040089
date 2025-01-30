@@ -5,7 +5,8 @@ public class SceneController : MonoBehaviour
 {
     public void RestartGame()
     {
-        SceneManager.LoadScene("MainScene"); // Replace with your main scene name
+        GameManager.Instance?.ResetGame(); // Resets both game state and score
+        SceneManager.LoadScene("MainScene");
     }
 
     public void QuitGame()

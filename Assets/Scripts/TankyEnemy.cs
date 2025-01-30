@@ -2,41 +2,29 @@ using UnityEngine;
 
 public class TankyEnemy : MonoBehaviour
 {
-    public int health = 3; // Number of hits required to destroy
-    public float fallSpeed = 2f; // Speed at which the enemy falls
-    public int scoreValue = 30; // Points awarded for destroying this enemy
+    public int health = 3;
+    public float fallSpeed = 2f;
+    public int scoreValue = 30;
 
-    void Update()
+    private void Update()
     {
-        // Move the enemy down the screen
         transform.Translate(Vector3.down * fallSpeed * Time.deltaTime);
     }
 
-    // Method to handle taking damage
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if (health > 0) return; // Prevents unnecessary execution
 
-        // Check if the enemy is out of health
-        if (health <= 0)
-        {
-            // Play explosion sound
-            AudioManager.Instance.PlaySound(AudioManager.Instance.explosionClip);
+        AudioManager.Instance?.PlaySound(AudioManager.Instance.explosionClip);
+        GameManager.Instance?.EnemyDestroyed();
+        ScoreManager.Instance?.AddScore(scoreValue);
 
-            // Notify GameManager about enemy destruction
-            FindObjectOfType<GameManager>().EnemyDestroyed();
-
-            // Add points to the score
-            ScoreManager.Instance.AddScore(scoreValue);
-
-            // Destroy the tanky enemy
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()
     {
-        // Destroy the tanky enemy when it leaves the screen
         Destroy(gameObject);
     }
 }

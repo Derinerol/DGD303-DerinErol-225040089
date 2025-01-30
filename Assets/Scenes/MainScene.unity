@@ -258,7 +258,7 @@ MonoBehaviour:
   - {fileID: 670088969545072474, guid: e144e167cb6148e47bd32db0cb4f0271, type: 3}
   - {fileID: 670088969545072474, guid: f8010c9d8b0b6ec43af6b4eb307ae1ea, type: 3}
   - {fileID: 670088969545072474, guid: f644cf0cfd71d0043b1ac1274f647147, type: 3}
-  spawnInterval: 1.5
+  spawnInterval: 2
   spawnRangeX: 8
   spawnY: 6
 --- !u!4 &73831586
@@ -476,8 +476,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4290822336
+  m_fontColor: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -11,7 +11,7 @@ public class BulletCollision : MonoBehaviour
             AudioManager.Instance.PlaySound(AudioManager.Instance.explosionClip);
 
             // Notify GameManager about enemy destruction
-            FindObjectOfType<GameManager>().EnemyDestroyed();
+            GameManager.Instance.EnemyDestroyed();
 
             // Add points to the score
             ScoreManager.Instance.AddScore(10); // Award 10 points for each enemy
